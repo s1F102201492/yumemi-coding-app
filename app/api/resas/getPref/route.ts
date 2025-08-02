@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+// 都道府県のデータを取得するためのAPI
 export const GET = async () => {
     try {
         const apiKey = process.env.API_SECRET_KEY;
