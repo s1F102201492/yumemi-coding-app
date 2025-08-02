@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export const GET = async () => {
     try {
         const apiKey = process.env.API_SECRET_KEY;
-        const apiEndPoint = process.env.NEXT_PUBLIC_API_URL;
+        const apiEndPoint = process.env.NEXT_PUBLIC_API_PREF_POINT;
 
         // API keyがない場合
         if (!apiKey) {
@@ -27,9 +27,10 @@ export const GET = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
+                'X-API-KEY': `${apiKey}`
             }
         })
-
+        
         const data = await res.json();
 
         //API処理が正常にできない場合
