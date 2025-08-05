@@ -1,66 +1,57 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Select, Text } from "@radix-ui/themes";
+import { getPopuData, getPrefData } from "./components/getData/getData";
 
 export default function Home() {
-  // 都道府県のデータをStateで管理
-  const [prefState, setPrefState] = useState<prefDataModel | null>();
+  
+  // 全都道府県のデータを管理
+  const [allPrefData, setAllPrefData] = useState<prefDataModel[]|null>(null);
 
-  // 人口構成のデータをStateで管理
-  const [popuState, setPopuState] = useState<popuDataModel | null>();
-
-  // データを取得する関数
-  const getPrefData = async () => {
-
-    const res = await fetch('api/resas/getPref', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-
-      }
-    })
-    
-    const result = await res.json();
-    const data_final = result.data.result
-    
-    if (!data_final) {
-      return ;
-    }
-    
-    setPrefState(data_final);
-    console.log("都道府県: ", data_final)
-  }
-
-  const getPopuData = async () => {
-    
-    // prefCodeは後で変数に変更
-    const res = await fetch('api/resas/getPopu', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: JSON.stringify({prefCode: 1})
-    })
-    
-    const result = await res.json();
-    const data_final = result.data.result
-    
-    if (!data_final) {
-      return ;
-    }
-    
-    setPopuState(data_final);
-    console.log("人口構成: ", data_final)
-  }
+  // 人口構成のデータを管理
+  const [popuData, setPopuData] = useState<popuDataModel|null>(null);
 
   useEffect(() => {
-    getPrefData();
-    getPopuData();
-  }, [])
+    const getData = async () => {
+        setAllPrefData(await getPrefData());
+    }
+    
+    if (!allPrefData) {
+      getData();
+    }
+  },[])
+
+  // 選択された都道府県をStateで管理
+  const [prefState, setPrefState] = useState<string>('');
+
+  // 都道府県の選択を反映させる関数
+  const handlePrefSelect = (e: string) => {
+    allPrefData!.map(async pref => {
+      if (pref.prefName == e) {
+        setPopuData(await getPopuData(pref.prefCode));
+        setPrefState(e);
+        return;
+      }
+    })
+  }
+
+  // データ読み込み中はローディング表示
+  if (allPrefData === null) {
+    return <div>Loading…</div>
+  }
 
   return (
     <div>
-      Hello world!
+        <Text size="7" weight="medium">都道府県を選択</Text>
+        <Select.Root value={prefState} onValueChange={handlePrefSelect}>
+          <Select.Trigger placeholder="都道府県を選択"/>
+          <Select.Content>
+            <Select.Group>
+              {allPrefData!.map((pref) => <Select.Item key={pref.prefCode} value={pref.prefName}>{pref.prefName}</Select.Item>)}
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
     </div>
   );
 }
