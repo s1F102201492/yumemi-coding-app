@@ -32,6 +32,7 @@ export default function Home() {
   }
 
   const getPopuData = async () => {
+    
     // prefCodeは後で変数に変更
     const res = await fetch('api/resas/getPopu', {
       method: 'POST',
