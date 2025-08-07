@@ -22,7 +22,7 @@ export default function Home() {
 
   // 選択された都道府県の人口構成のデータを管理
   const [selectedData, setSelectedData] = useState<Record<number, popuDataModel>>({})
-  const handleSelectPref = async (prefCode: number, checked: boolean) => {
+  const handleSelectPref = async (prefCode: number) => {
     if (!Object.keys(selectedData).includes(prefCode.toString())) {
       // falseのチェックボックスをクリックしたときの処理
       const newPopuData = await getPopuData(prefCode);
@@ -60,9 +60,9 @@ export default function Home() {
          <Checkbox
            id={pref.prefCode.toString()}
            checked={Object.keys(selectedData).includes(pref.prefCode.toString())}
-           onCheckedChange={(checked: boolean) => {
+           onCheckedChange={() => {
              // checkedを使ってデータを表示させる
-             handleSelectPref(pref.prefCode, checked)
+             handleSelectPref(pref.prefCode)
            }}
          />
          <label htmlFor={pref.prefName}>{pref.prefName}</label>
