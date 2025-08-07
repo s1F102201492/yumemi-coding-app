@@ -33,7 +33,7 @@ export const getPopuData = async (pc: number) => {
     })
 
     const result = await res.json();
-    const data_final = result.data.result
+    const data_final = result.data.result.data
 
     if (!data_final) {
         

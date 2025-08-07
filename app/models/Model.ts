@@ -4,13 +4,10 @@ interface prefDataModel {
 }
 
 interface popuDataModel {
-    boundaryYear: number,
+    label: string,
     data: {
-        label: string,
-        data: {
-            year: number,
-            value: number,
-            rate: number | null
-        }
+        year: number,
+        value: number,
+        rate: number | null
     }
 }

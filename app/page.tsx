@@ -1,16 +1,14 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Select, Text } from "@radix-ui/themes";
+import { Checkbox, CheckboxGroup, Flex, Select, Text } from "@radix-ui/themes";
 import { getPopuData, getPrefData } from "./components/getData/getData";
+import { Chart } from "./components/view/Chart";
 
 export default function Home() {
   
   // 全都道府県のデータを管理
   const [allPrefData, setAllPrefData] = useState<prefDataModel[]|null>(null);
-
-  // 人口構成のデータを管理
-  const [popuData, setPopuData] = useState<popuDataModel|null>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -22,36 +20,57 @@ export default function Home() {
     }
   },[])
 
-  // 選択された都道府県をStateで管理
-  const [prefState, setPrefState] = useState<string>('');
+  // 選択された都道府県の人口構成のデータを管理
+  const [selectedData, setSelectedData] = useState<Record<number, popuDataModel>>({})
+  const handleSelectPref = async (prefCode: number, checked: boolean) => {
+    if (!Object.keys(selectedData).includes(prefCode.toString())) {
+      // falseのチェックボックスをクリックしたときの処理
+      const newPopuData = await getPopuData(prefCode);
+      setSelectedData((prev) => {
+        return {...prev, [prefCode]: newPopuData};
+      })
 
-  // 都道府県の選択を反映させる関数
-  const handlePrefSelect = (e: string) => {
-    allPrefData!.map(async pref => {
-      if (pref.prefName == e) {
-        setPopuData(await getPopuData(pref.prefCode));
-        setPrefState(e);
-        return;
-      }
-    })
+    } else {
+      // trueのチェックボックスをクリックしたときの処理
+      setSelectedData((prev) => {
+        let newPopuData: Record<number, popuDataModel> = {}
+        Object.keys(prev).map((key) => {
+          if (Number(key) !== prefCode) {
+            newPopuData[Number(key)] = prev[Number(key)]
+          }
+        })
+        return newPopuData;
+      })
+    }
+
+
   }
 
+  console.log(selectedData)
   // データ読み込み中はローディング表示
-  if (allPrefData === null) {
-    return <div>Loading…</div>
+  if (!allPrefData) {
+    return <div>Loading...</div>
   }
 
   return (
     <div>
-        <Text size="7" weight="medium">都道府県を選択</Text>
-        <Select.Root value={prefState} onValueChange={handlePrefSelect}>
-          <Select.Trigger placeholder="都道府県を選択"/>
-          <Select.Content>
-            <Select.Group>
-              {allPrefData!.map((pref) => <Select.Item key={pref.prefCode} value={pref.prefName}>{pref.prefName}</Select.Item>)}
-            </Select.Group>
-          </Select.Content>
-        </Select.Root>
+      <Text size="7" weight="medium">都道府県を選択</Text>
+      {allPrefData!.map((pref) => (
+       <div key={pref.prefCode}>
+         <Checkbox
+           id={pref.prefCode.toString()}
+           checked={Object.keys(selectedData).includes(pref.prefCode.toString())}
+           onCheckedChange={(checked: boolean) => {
+             // checkedを使ってデータを表示させる
+             handleSelectPref(pref.prefCode, checked)
+           }}
+         />
+         <label htmlFor={pref.prefName}>{pref.prefName}</label>
+       </div>
+     ))}
+
+      <Chart data={selectedData} />
+      
     </div>
   );
 }
