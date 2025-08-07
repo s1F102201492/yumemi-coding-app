@@ -59,7 +59,7 @@ export default function Home() {
        <div key={pref.prefCode}>
          <Checkbox
            id={pref.prefCode.toString()}
-           checked={Object.keys(selectedData).includes(pref.prefCode.toString())}
+           checked={Object.keys(selectedData).includes(pref.prefName)}
            onCheckedChange={() => {
              // checkedを使ってデータを表示させる
              handleSelectPref(pref)

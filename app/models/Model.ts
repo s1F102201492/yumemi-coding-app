@@ -16,7 +16,7 @@ interface popuDataModel {
 
 // Chartコンポーネントに渡す際の型
 interface chartComponentModel {
-    data: Record<number, popuDataModel>
+    data: Record<string, popuDataModel>
 }
 
 // 
