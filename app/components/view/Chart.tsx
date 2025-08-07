@@ -8,9 +8,14 @@ export const Chart = (data: chartComponentModel) => {
     const [category, setCategory] = useState<string>('総人口');
     const categoryList = ['総人口', '年少人口', '生産年齢人口', '老年人口']
 
-    const changeDataModel = () => {
-
-    }
+    // グラフに表示する用に加工したデータを格納
+    // const [viewData, setViewData] = useState();
+    // const changeDataModel = (category: string) => {
+    //     const newData = [];
+    //     for (const key in data) {
+    //         if (key.)
+    //     }
+    // }
     
     return (
         <div>

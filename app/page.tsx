@@ -21,22 +21,22 @@ export default function Home() {
   },[])
 
   // 選択された都道府県の人口構成のデータを管理
-  const [selectedData, setSelectedData] = useState<Record<number, popuDataModel>>({})
-  const handleSelectPref = async (prefCode: number) => {
-    if (!Object.keys(selectedData).includes(prefCode.toString())) {
+  const [selectedData, setSelectedData] = useState<Record<string, popuDataModel>>({})
+  const handleSelectPref = async (pref: prefDataModel) => {
+    if (!Object.keys(selectedData).includes(pref.prefName)) {
       // falseのチェックボックスをクリックしたときの処理
-      const newPopuData = await getPopuData(prefCode);
+      const newPopuData = await getPopuData(pref.prefCode);
       setSelectedData((prev) => {
-        return {...prev, [prefCode]: newPopuData};
+        return {...prev, [pref.prefName]: newPopuData};
       })
 
     } else {
       // trueのチェックボックスをクリックしたときの処理
       setSelectedData((prev) => {
-        let newPopuData: Record<number, popuDataModel> = {}
+        let newPopuData: Record<string, popuDataModel> = {}
         Object.keys(prev).map((key) => {
-          if (Number(key) !== prefCode) {
-            newPopuData[Number(key)] = prev[Number(key)]
+          if (key !== pref.prefName) {
+            newPopuData[key] = prev[key]
           }
         })
         return newPopuData;
@@ -62,7 +62,7 @@ export default function Home() {
            checked={Object.keys(selectedData).includes(pref.prefCode.toString())}
            onCheckedChange={() => {
              // checkedを使ってデータを表示させる
-             handleSelectPref(pref.prefCode)
+             handleSelectPref(pref)
            }}
          />
          <label htmlFor={pref.prefName}>{pref.prefName}</label>
