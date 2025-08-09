@@ -7,6 +7,7 @@ type SelectComponentProps<T extends string> = {
   allData: T[]
 }
 
+// どこでもコンポーネントを使用できるように設定
 export const SelectComponent = <T extends string>({
   state,
   setfunc,
@@ -18,6 +19,7 @@ export const SelectComponent = <T extends string>({
         setfunc(e as T);
     }
 
+    console.log(state)
   return (
     <div>
         <Select.Root value={state} onValueChange={handleSelect}>

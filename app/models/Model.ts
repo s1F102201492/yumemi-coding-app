@@ -11,12 +11,20 @@ interface popuDataModel {
         year: number,
         value: number,
         rate: number | null
-    }
+    }[]
 }
 
-// Chartコンポーネントに渡す際の型
-interface chartComponentModel {
-    data: Record<string, popuDataModel>
+interface chartDataModel {
+    year: number;
+    [seriesLabel: string]: number | null;
 }
 
-// 
+interface RechartDataResult {
+    data: chartDataModel[];
+    series: string[];
+  }
+
+// Chartコンポーネントに受け渡しする際の型
+interface ChartProps {
+    prefData: Record<string, popuDataModel[]>
+}

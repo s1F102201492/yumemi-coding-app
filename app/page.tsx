@@ -21,7 +21,7 @@ export default function Home() {
   },[])
 
   // 選択された都道府県の人口構成のデータを管理
-  const [selectedData, setSelectedData] = useState<Record<string, popuDataModel>>({})
+  const [selectedData, setSelectedData] = useState<Record<string, popuDataModel[]>>({})
   const handleSelectPref = async (pref: prefDataModel) => {
     if (!Object.keys(selectedData).includes(pref.prefName)) {
       // falseのチェックボックスをクリックしたときの処理
@@ -33,7 +33,7 @@ export default function Home() {
     } else {
       // trueのチェックボックスをクリックしたときの処理
       setSelectedData((prev) => {
-        let newPopuData: Record<string, popuDataModel> = {}
+        let newPopuData: Record<string, popuDataModel[]> = {}
         Object.keys(prev).map((key) => {
           if (key !== pref.prefName) {
             newPopuData[key] = prev[key]
@@ -69,7 +69,7 @@ export default function Home() {
        </div>
      ))}
 
-      <Chart data={selectedData} />
+      <Chart prefData={selectedData} />
       
     </div>
   );
