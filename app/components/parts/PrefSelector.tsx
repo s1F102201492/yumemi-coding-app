@@ -15,8 +15,6 @@ const PrefSelector = ({ selectedData, setSelectedData, allPrefData, setShowSelec
               return {...prev, [data.prefName]: newPopuData};
             })
         }
-
-        setShowSelector(false);
     }
 
   return (
@@ -30,17 +28,23 @@ const PrefSelector = ({ selectedData, setSelectedData, allPrefData, setShowSelec
 
                     return (
                         <li key={data.prefCode}>
+                            {isSelected
+                            ? <button disabled
+                            className='w-full text-left text-xs h-auto py-2 px-3 rounded-md border transition-colors
+                            bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed'>
+                                {data.prefName}
+                            </button>
+                            :
                             <button onClick={() => handlePrefAdd(data)}
-                            className={`w-full text-left text-xs h-auto py-2 px-3 rounded-md border transition-colors ${
-                                isSelected
-                                  ? "bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed"
-                                  : "bg-white border-gray-300 text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                }`}
+                            className="w-full text-left text-xs h-auto py-2 px-3 rounded-md border transition-colors
+                                bg-white border-gray-300 text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 aria-pressed={isSelected}>
                                     <article className="flex flex-col items-start">
                                         <h4 className="font-medium">{data.prefName}</h4>
                                     </article>
                             </button>
+                            }
+                            
                         </li> 
                     )
                 })}
