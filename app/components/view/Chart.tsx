@@ -76,7 +76,7 @@ export const Chart: React.FC<ChartProps> = ({ prefData }) => {
 
     if (!viewData || !viewSeries || viewSeries!.length == 0) {
         return (
-            <div>都道府県を選択してください。</div>
+            <h3 className="font-medium text-gray-600 pl-10 pt-5">都道府県を選択すると人口グラフが表示されます。</h3>
         )
     } else {
         return (
