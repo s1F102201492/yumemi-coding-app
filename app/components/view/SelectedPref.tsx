@@ -22,17 +22,13 @@ export const SelectedPref = ({ selectedData, setSelectedData, allPrefData }: Sel
           })
     }    
 
-    if (!allPrefData) {
-        return <div>データを読み込んでいます...</div>
-    }
-
     return (
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm m-6">
+        <div className="w-auto bg-white rounded-lg border border-gray-200 shadow-sm m-6">
             <div className="p-6">
                 <div className="flex flex-wrap items-center gap-2">
                     <span className="text-sm font-medium text-gray-600">選択中:</span>
                     {Object.keys(selectedData).map((prefName) => {
-                    const pref = allPrefData.find((p) => p.prefName === prefName)
+                    const pref = allPrefData?.find((p) => p.prefName === prefName)
                     return (
                     <span
                         key={prefName}
