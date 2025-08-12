@@ -1,5 +1,5 @@
 import React, { JSX } from 'react'
-import { Select, Text } from "@radix-ui/themes";
+import { Select } from "@radix-ui/themes";
 
 type SelectComponentProps<T extends string> = {
   state: T
@@ -19,16 +19,15 @@ export const SelectComponent = <T extends string>({
         setfunc(e as T);
     }
 
-    console.log(state)
   return (
     <div>
-        <Select.Root value={state} onValueChange={handleSelect}>
+        <Select.Root value={state} onValueChange={handleSelect} defaultValue={state} >
           <Select.Trigger />
-          <Select.Content>
-            <Select.Group>
-              {allData!.map((element: string) => <Select.Item key={element} value={element}>{element}</Select.Item>)}
-            </Select.Group>
-          </Select.Content>
+            <Select.Content>
+              <Select.Group>
+                {allData!.map((element: string) => <Select.Item key={element} value={element}>{element}</Select.Item>)}
+              </Select.Group>
+            </Select.Content>
         </Select.Root>
     </div>
   )

@@ -81,19 +81,22 @@ export const Chart: React.FC<ChartProps> = ({ prefData }) => {
     } else {
         return (
             <div>
+                <article className='pt-8 pb-3 pl-4'>
+                    <SelectComponent state={category} setfunc={setCategory} allData={categoryList} />
+                </article>
                 
-                <SelectComponent state={category} setfunc={setCategory} allData={categoryList}/>
-    
-                {viewData && viewSeries}
-                <LineChart width={600} height={300} data={viewData!} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                <CartesianGrid />
-                {viewSeries!.map((name, i) => (
-                <Line type="monotone" key={name} dataKey={name} name={name} stroke={COLORS[i%10]} />))}
-                <XAxis dataKey="year" />
-                <YAxis width="auto" />
-                <Legend align="right" />
-                <Tooltip />
-                </LineChart>
+                <article className='px-4'>
+                    <LineChart width={600} height={300} data={viewData!} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                    <CartesianGrid />
+                    {viewSeries!.map((name, i) => (
+                    <Line type="monotone" key={name} dataKey={name} name={name} stroke={COLORS[i%10]} />))}
+                    <XAxis dataKey="year" />
+                    <YAxis width="auto" />
+                    <Legend align="right" />
+                    <Tooltip />
+                    </LineChart>
+                </article>
+                
             </div>
         )
     }
