@@ -1,11 +1,11 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { getPopuData, getPrefData } from "./components/getData/getData";
+import { useState } from "react";
 import { Chart } from "./components/view/Chart";
 import { SelectedPref } from "./components/view/SelectedPref";
 import { LoadingSpinner } from "./components/parts/LoadingSpinner";
 import useGetAllPrefData from "./hooks/useGetAllPrefData";
+import useGetSelectedData from "./hooks/useGetSelectedData";
 
 export default function Home() {
   
@@ -13,7 +13,7 @@ export default function Home() {
   const { allPrefData, loading } = useGetAllPrefData();
 
   // 選択された都道府県の人口構成のデータを管理
-  const [selectedData, setSelectedData] = useState<Record<string, popuDataModel[]>>({})
+  const { selectedData, handlePrefAdd, handlePrefRemove } = useGetSelectedData();
   
 
   // データ読み込み中はローディング表示
@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div>
-      <SelectedPref selectedData={selectedData} setSelectedData={setSelectedData} allPrefData={allPrefData} />
+      <SelectedPref selectedData={selectedData} handlePrefAdd={handlePrefAdd} handlePrefRemove={handlePrefRemove} />
 
       <Chart prefData={selectedData} />
       

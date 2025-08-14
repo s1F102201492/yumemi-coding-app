@@ -29,17 +29,15 @@ interface ChartProps {
     prefData: Record<string, popuDataModel[]>
 }
 
-// SelectedPrefコンポーネントに受け渡しする際の型
-interface SelectedPrefProps {
-    selectedData: Record<string, popuDataModel[]>;
-    setSelectedData: React.Dispatch<React.SetStateAction<Record<string, popuDataModel[]>>>;
-    allPrefData: prefDataModel[]|null
-}
-
 // PrefSelectorコンポーネントに受け渡しする際の型
 interface PrefSelectorProps {
-    selectedData: Record<string, popuDataModel[]>;
-    setSelectedData: React.Dispatch<React.SetStateAction<Record<string, popuDataModel[]>>>;
-    allPrefData: prefDataModel[]|null
-    setShowSelector: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedData: Record<string, popuDataModel[]>
+    handlePrefAdd: (data: prefDataModel) => Promise<void>
+}
+
+// SelectedPrefコンポーネントに受け渡しする際の型
+interface useGetSelectedDataProps {
+    selectedData: Record<string, popuDataModel[]>
+    handlePrefAdd: (data: prefDataModel) => Promise<void>
+    handlePrefRemove: (removePrefName: string) => void
 }

@@ -1,20 +1,19 @@
-import React, { MouseEventHandler } from 'react'
-import { getPopuData } from '../getData/getData';
-import Button  from "radix-ui";
+import React from 'react'
+import useGetAllPrefData from '@/app/hooks/useGetAllPrefData';
+import { LoadingSpinner } from './LoadingSpinner';
 
 
 // 県を選択するためのコンポーネント
-const PrefSelector = ({ selectedData, setSelectedData, allPrefData, setShowSelector }: PrefSelectorProps) => {
+const PrefSelector = ({ selectedData, handlePrefAdd }: PrefSelectorProps) => {
 
-    // 都道府県の選択
-    const handlePrefAdd = async (data: prefDataModel) => {
-        if (!Object.keys(selectedData).includes(data.prefName)) {
-            // falseのチェックボックスをクリックしたときの処理
-            const newPopuData = await getPopuData(data.prefCode);
-            setSelectedData((prev) => {
-              return {...prev, [data.prefName]: newPopuData};
-            })
-        }
+    const { allPrefData, loading } = useGetAllPrefData();
+
+    if (!allPrefData) {
+        return (
+            <div>
+                <LoadingSpinner loading={loading} />
+            </div>
+        )
     }
 
   return (
@@ -25,7 +24,6 @@ const PrefSelector = ({ selectedData, setSelectedData, allPrefData, setShowSelec
             <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
                 {allPrefData!.map((data) => {
                     const isSelected = Object.keys(selectedData).includes(data.prefName)
-
                     return (
                         <li key={data.prefCode}>
                             {isSelected

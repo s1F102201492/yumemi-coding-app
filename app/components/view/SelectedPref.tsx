@@ -1,26 +1,16 @@
 import { PlusIcon } from '@radix-ui/react-icons'
 import React, { useState } from 'react'
 import PrefSelector from '../parts/PrefSelector';
+import useGetAllPrefData from '@/app/hooks/useGetAllPrefData';
+import useShowSelector from '@/app/hooks/useShowSelector';
 
-export const SelectedPref = ({ selectedData, setSelectedData, allPrefData }: SelectedPrefProps) => {
+export const SelectedPref = ({ selectedData, handlePrefAdd, handlePrefRemove}: useGetSelectedDataProps) => {
 
     // 県を選択するコンポーネントの表示を管理
-    const [showSelector, setShowSelector] = useState<boolean>(false);
+    const { showSelector, handleOpenClose } = useShowSelector();
 
-
-    // trueのチェックボックスをクリックしたときの処理
-    const handlePrefRemove = (removePrefName: string) => {
-        console.log(removePrefName)
-        setSelectedData((prev) => {
-            let newPopuData: Record<string, popuDataModel[]> = {}
-            Object.keys(prev).map((key) => {
-              if (key !== removePrefName) {
-                newPopuData[key] = prev[key]
-              }
-            })
-            return newPopuData;
-          })
-    }    
+    // カスタムフックuseGetSelectedDataからインポート
+    const { allPrefData } = useGetAllPrefData();  
 
     return (
         <div className="w-auto bg-white rounded-lg border border-gray-200 shadow-sm m-6">
@@ -45,7 +35,7 @@ export const SelectedPref = ({ selectedData, setSelectedData, allPrefData }: Sel
                     )
                 })}
                 <button
-                onClick={() => setShowSelector(!showSelector)}
+                onClick={handleOpenClose}
                 className="inline-flex items-center gap-1 px-3 py-1 text-sm border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                 {showSelector
@@ -61,7 +51,7 @@ export const SelectedPref = ({ selectedData, setSelectedData, allPrefData }: Sel
                 
                 </div>
 
-                {showSelector && <PrefSelector selectedData={selectedData} setSelectedData={setSelectedData} allPrefData={allPrefData} setShowSelector={setShowSelector} />}
+                {showSelector && <PrefSelector selectedData={selectedData} handlePrefAdd={handlePrefAdd} />}
             </div>
         </div>
   )
