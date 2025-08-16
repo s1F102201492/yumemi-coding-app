@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { popuDataModel, prefDataModel } from "../models/Model";
 
 // 選択された都道府県の人口構成データを管理するカスタムフック
 const useGetSelectedData = () => {
@@ -44,7 +45,7 @@ const useGetSelectedData = () => {
     // 選択されている県を削除する機能
     const handlePrefRemove = (removePrefName: string) => {
         setSelectedData((prev) => {
-            let newPopuData: Record<string, popuDataModel[]> = {}
+            const newPopuData: Record<string, popuDataModel[]> = {}
             Object.keys(prev).map((key) => {
               if (key !== removePrefName) {
                 newPopuData[key] = prev[key]

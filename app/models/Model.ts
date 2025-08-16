@@ -1,11 +1,11 @@
 // 取得した都道府県のデータの型
-interface prefDataModel {
+export interface prefDataModel {
     prefCode: number,
     prefName: string
 }
 
 // 取得した人口構成のデータの型
-interface popuDataModel {
+export interface popuDataModel {
     label: string,
     data: {
         year: number,
@@ -14,29 +14,24 @@ interface popuDataModel {
     }[]
 }
 
-interface chartDataModel {
+export interface chartDataModel {
     year: number;
     [seriesLabel: string]: number | null;
 }
 
-interface RechartDataResult {
-    data: chartDataModel[];
-    series: string[];
-  }
-
 // Chartコンポーネントに受け渡しする際の型
-interface ChartProps {
+export interface ChartProps {
     prefData: Record<string, popuDataModel[]>
 }
 
 // PrefSelectorコンポーネントに受け渡しする際の型
-interface PrefSelectorProps {
+export interface PrefSelectorProps {
     selectedData: Record<string, popuDataModel[]>
     handlePrefAdd: (data: prefDataModel) => Promise<void>
 }
 
 // SelectedPrefコンポーネントに受け渡しする際の型
-interface useGetSelectedDataProps {
+export interface useGetSelectedDataProps {
     selectedData: Record<string, popuDataModel[]>
     handlePrefAdd: (data: prefDataModel) => Promise<void>
     handlePrefRemove: (removePrefName: string) => void

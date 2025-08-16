@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip } from 'recharts';
 import { SelectComponent } from '../parts/SelectComponent';
 import useViewChart from '@/app/hooks/useViewChart';
+import { ChartProps } from '@/app/models/Model';
 
 export const Chart: React.FC<ChartProps> = ({ prefData }) => {
 
-    const { category, setCategory, categoryList, viewData, viewSeries, toRechartData } = useViewChart(prefData);
+    const { category, setCategory, categoryList, viewData, viewSeries } = useViewChart(prefData);
     
     const COLORS: string[] = [
         "#1f77b4", // muted blue

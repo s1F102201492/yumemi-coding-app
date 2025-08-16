@@ -1,8 +1,9 @@
 import { PlusIcon } from '@radix-ui/react-icons'
-import React, { useState } from 'react'
+import React from 'react'
 import PrefSelector from '../parts/PrefSelector';
 import useGetAllPrefData from '@/app/hooks/useGetAllPrefData';
 import useShowSelector from '@/app/hooks/useShowSelector';
+import { useGetSelectedDataProps } from '@/app/models/Model';
 
 export const SelectedPref = ({ selectedData, handlePrefAdd, handlePrefRemove}: useGetSelectedDataProps) => {
 

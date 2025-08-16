@@ -1,6 +1,7 @@
 import React from 'react'
 import useGetAllPrefData from '@/app/hooks/useGetAllPrefData';
 import { LoadingSpinner } from './LoadingSpinner';
+import { PrefSelectorProps } from '@/app/models/Model';
 
 
 // 県を選択するためのコンポーネント

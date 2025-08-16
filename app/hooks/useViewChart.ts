@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { chartDataModel, popuDataModel } from "../models/Model";
 
 // Rechartにデータを表示するためstate、関数のカスタムフック
 const useViewChart = (prefData: Record<string, popuDataModel[]>) => {
@@ -18,11 +19,11 @@ const useViewChart = (prefData: Record<string, popuDataModel[]>) => {
         const categoryIdx = categoryList.indexOf(selectedCategory)
 
         // rechart用にデータの型を変えたもの
-        let newData: chartDataModel[] = [];
+        const newData: chartDataModel[] = [];
         
         // 年ごとに分けるために年を先に格納しておく
         for (let i = 1960; i <= 2045; i += 5) {
-            let addYear = {year: i}
+            const addYear = {year: i}
             newData.push(addYear);
         }
         // seriesでループして県ごとに処理→categoryのindexで総人口などの使うデータを決める

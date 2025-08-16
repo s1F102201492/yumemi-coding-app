@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import React from 'react'
 import { Chart } from "./components/view/Chart";
 import { SelectedPref } from "./components/view/SelectedPref";
 import { LoadingSpinner } from "./components/parts/LoadingSpinner";
