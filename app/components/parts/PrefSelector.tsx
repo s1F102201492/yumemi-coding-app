@@ -39,7 +39,7 @@ const PrefSelector = ({ selectedData, handlePrefAdd }: PrefSelectorProps) => {
                     <button
                       onClick={() => handlePrefAdd(data)}
                       className="w-full text-left text-xs h-auto py-2 px-3 rounded-md border transition-colors
-                                bg-white border-gray-300 text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                bg-white border-gray-300 text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
                       aria-pressed={isSelected}
                     >
                       <article className="flex flex-col items-start">
