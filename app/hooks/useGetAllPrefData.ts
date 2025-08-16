@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { prefDataModel } from "../models/Model";
 
 // 全都道府県のデータを取得するカスタムフック
 const useGetAllPrefData = () => {
