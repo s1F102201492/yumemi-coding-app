@@ -19,6 +19,11 @@ const useGetAllPrefData = () => {
     });
 
     const result = await res.json();
+
+    // if (!result?.data?.result?.data) {
+    //   return null;
+    // }
+
     const data_final: prefDataModel[] = result.data.result;
 
     if (!data_final) {

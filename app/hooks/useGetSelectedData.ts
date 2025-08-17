@@ -14,11 +14,12 @@ const useGetSelectedData = () => {
     });
 
     const result = await res.json();
-    const data_final = result.data.result.data;
 
-    if (!data_final) {
-      return;
+    if (!result?.data?.result?.data) {
+      return null;
     }
+
+    const data_final = result.data.result.data;
 
     console.log("人口構成: ", data_final);
     return data_final;
