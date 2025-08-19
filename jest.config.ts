@@ -12,6 +12,9 @@ const config: Config = {
   testEnvironment: 'jsdom',
   // 各テストが実行される前に、さらに設定オプションを追加します
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
+  }
 }
 
 // createJestConfigは、非同期であるnext/jestがNext.jsの設定を読み込めるように、この方法でエクスポートされます

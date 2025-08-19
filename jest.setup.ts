@@ -20,3 +20,19 @@ if (!global.fetch) {
 
 // ✅ userEvent をグローバルで使えるようにする（任意）
 ;(global as any).userEvent = userEvent
+
+class MockResizeObserver {
+  observe(): void {
+    // do nothing
+  }
+
+  unobserve(): void {
+    // do nothing
+  }
+
+  disconnect(): void {
+    // do nothing
+  }
+}
+
+(global as any).ResizeObserver = MockResizeObserver;
