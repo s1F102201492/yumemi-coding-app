@@ -5,7 +5,6 @@
 import { useState } from "react";
 
 const useShowSelector = () => {
-  
   const [showSelector, setShowSelector] = useState<boolean>(false);
 
   const handleOpenClose = () => setShowSelector(!showSelector);

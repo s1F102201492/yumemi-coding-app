@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { chartDataModel, popuDataModel } from "../models/Model";
 
 const useViewChart = (prefData: Record<string, popuDataModel[]>) => {
-  
   const [category, setCategory] = useState<string>("総人口");
   const categoryList = ["総人口", "年少人口", "生産年齢人口", "老年人口"];
 

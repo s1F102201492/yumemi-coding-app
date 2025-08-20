@@ -5,11 +5,11 @@ import useGetAllPrefData from "@/app/hooks/useGetAllPrefData";
 import useShowSelector from "@/app/hooks/useShowSelector";
 import { useGetSelectedDataProps } from "@/app/models/Model";
 
-export const SelectedPref = ({
+export default function SelectedPref ({
   selectedData,
   handlePrefAdd,
   handlePrefRemove,
-}: useGetSelectedDataProps) => {
+}: useGetSelectedDataProps) {
   // 県を選択するコンポーネントの表示を管理
   const { showSelector, handleOpenClose } = useShowSelector();
 
