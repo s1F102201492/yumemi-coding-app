@@ -15,6 +15,9 @@ export default function Home() {
   const { selectedData, handlePrefAdd, handlePrefRemove } =
     useGetSelectedData();
 
+    console.log("selectedData: ", selectedData)
+    console.log("allPrefData: ", allPrefData)
+  
   // データ読み込み中はローディング表示
   if (!allPrefData) {
     return (
