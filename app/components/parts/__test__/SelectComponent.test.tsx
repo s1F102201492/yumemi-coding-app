@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { SelectComponent } from "../SelectComponent";
 import { Theme } from "@radix-ui/themes";
-import React from 'react';
+import React from "react";
 
 describe("SelectComponent", () => {
   const mockSetFunc = jest.fn();

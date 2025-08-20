@@ -5,7 +5,7 @@ import useGetAllPrefData from "@/app/hooks/useGetAllPrefData";
 import useShowSelector from "@/app/hooks/useShowSelector";
 import { useGetSelectedDataProps } from "@/app/models/Model";
 
-export default function SelectedPref ({
+export default function SelectedPref({
   selectedData,
   handlePrefAdd,
   handlePrefRemove,
@@ -92,4 +92,4 @@ export default function SelectedPref ({
       </div>
     </div>
   );
-};
+}

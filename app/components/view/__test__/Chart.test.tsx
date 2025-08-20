@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { Theme } from "@radix-ui/themes";
 import { Chart } from "../Chart";
 import useViewChart from "@/app/hooks/useViewChart";
-import React from 'react';
+import React from "react";
 
 // --- `recharts`ライブラリのモック化 ---
 jest.mock("recharts", () => {

@@ -4,17 +4,17 @@ import "@testing-library/jest-dom";
 import SelectedPref from "../SelectedPref";
 import useShowSelector from "@/app/hooks/useShowSelector";
 import useGetAllPrefData from "@/app/hooks/useGetAllPrefData";
-import React from 'react';
+import React from "react";
 
 // --- カスタムフックのモック化 ---
 jest.mock("@/app/hooks/useShowSelector");
 jest.mock("@/app/hooks/useGetAllPrefData");
 // PrefSelectorも内部でフックを使っているため、ダミーコンポーネントとしてモック化
 jest.mock("../../parts/PrefSelector", () => {
-    const MockPrefSelector = () => <div data-testid="pref-selector" />;
-    MockPrefSelector.displayName = "MockPrefSelector";
-    return MockPrefSelector;
-  });
+  const MockPrefSelector = () => <div data-testid="pref-selector" />;
+  MockPrefSelector.displayName = "MockPrefSelector";
+  return MockPrefSelector;
+});
 
 const mockedUseShowSelector = useShowSelector as jest.Mock;
 const mockedUseGetAllPrefData = useGetAllPrefData as jest.Mock;

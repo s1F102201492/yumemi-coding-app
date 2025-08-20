@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { LoadingSpinner } from "../LoadingSpinner";
-import React from 'react';
+import React from "react";
 
 describe("LoadingSpinner", () => {
   // --- Test Case 1: ローディング中の場合 ---

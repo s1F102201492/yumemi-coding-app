@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import PrefSelector from "../PrefSelector";
 import useGetAllPrefData from "@/app/hooks/useGetAllPrefData";
 import { prefDataModel, popuDataModel } from "@/app/models/Model";
-import React from 'react';
+import React from "react";
 
 // --- カスタムフックのモック化 ---
 jest.mock("@/app/hooks/useGetAllPrefData");
