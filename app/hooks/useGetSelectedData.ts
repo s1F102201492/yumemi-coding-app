@@ -1,3 +1,8 @@
+// このカスタムフックではユーザーが選択した都道府県の人口構成のデータを取得します。
+// selectedData: 選択された都道府県の人口構成のデータを格納する変数(型はRecord<string, popuDataModel[]>)
+// handlePrefAdd: 選択された都道府県の人口構成のデータをselectedDataに追加する関数(型は(data: prefDataModel) => Promise<void>)
+// handlePrefRemove: 選択された都道府県の人口構成のデータをselectedDataから除外する関数(型は(removePrefName: string) => void)
+
 import { useState } from "react";
 import { popuDataModel, prefDataModel } from "../models/Model";
 
