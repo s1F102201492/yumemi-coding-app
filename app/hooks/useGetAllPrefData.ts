@@ -25,10 +25,10 @@ const useGetAllPrefData = () => {
     const data_final: prefDataModel[] = result.data.result;
 
     if (!data_final) {
+      alert("もう一度読み込んでください。");
       return null;
     }
 
-    console.log("都道府県: ", data_final);
     return data_final;
   };
 
