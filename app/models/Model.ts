@@ -14,6 +14,7 @@ export interface popuDataModel {
   }[];
 }
 
+// Rechartに表示する用のデータの型
 export interface chartDataModel {
   year: number;
   [seriesLabel: string]: number | null;

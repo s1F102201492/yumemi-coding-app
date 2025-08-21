@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+// このカスタムフックでは全データの都道府県を取得します。
+// allPrefData: 全都道府県のデータを格納する変数(型はprefDataModel[] | null)
+// getPrefData: 全都道府県のデータを取得する関数(型は() => Promise<prefDataModel[] | null>)
+// loading: getPrefDataでデータを取得している際に読み込み中を表示するための変数(型はboolean)
 
-// 全都道府県のデータを取得するカスタムフック
+import { useEffect, useState } from "react";
+import { prefDataModel } from "../models/Model";
+
 const useGetAllPrefData = () => {
   // ローディングの管理（allPrefDataを読み込んでいる最中は表示）
   const [loading, setLoading] = useState<boolean>(true);
 
-  // 全都道府県のデータを管理
   const [allPrefData, setAllPrefData] = useState<prefDataModel[] | null>(null);
 
-  // 全都道府県のデータを取得する関数
   const getPrefData = async () => {
     const res = await fetch("api/resas/getPref", {
       method: "GET",
@@ -18,6 +21,7 @@ const useGetAllPrefData = () => {
     });
 
     const result = await res.json();
+
     const data_final: prefDataModel[] = result.data.result;
 
     if (!data_final) {
@@ -42,7 +46,7 @@ const useGetAllPrefData = () => {
     setLoading(true);
   }, []);
 
-  return { allPrefData, setAllPrefData, loading };
+  return { allPrefData, loading };
 };
 
 export default useGetAllPrefData;

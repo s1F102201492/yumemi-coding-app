@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Chart } from "./components/view/Chart";
-import { SelectedPref } from "./components/view/SelectedPref";
+import SelectedPref from "./components/view/SelectedPref";
 import { LoadingSpinner } from "./components/parts/LoadingSpinner";
 import useGetAllPrefData from "./hooks/useGetAllPrefData";
 import useGetSelectedData from "./hooks/useGetSelectedData";
@@ -14,6 +14,9 @@ export default function Home() {
   // 選択された都道府県の人口構成のデータを管理
   const { selectedData, handlePrefAdd, handlePrefRemove } =
     useGetSelectedData();
+
+  console.log("selectedData: ", selectedData);
+  console.log("allPrefData: ", allPrefData);
 
   // データ読み込み中はローディング表示
   if (!allPrefData) {

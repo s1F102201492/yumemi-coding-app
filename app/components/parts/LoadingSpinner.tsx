@@ -5,7 +5,7 @@ export const LoadingSpinner = ({ loading }: { loading: boolean }) => {
   return (
     <div className="p-20">
       <section className="flex justify-center">
-        <Spinner loading={loading} size="3" />
+        <Spinner loading={loading} size="3" role="status" />
       </section>
       <h4
         className="font-medium text-gray-600
