@@ -7,6 +7,7 @@ import {
   YAxis,
   Legend,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 import { SelectComponent } from "../parts/SelectComponent";
 import useViewChart from "@/app/hooks/useViewChart";
@@ -46,28 +47,28 @@ export const Chart: React.FC<ChartProps> = ({ prefData }) => {
           />
         </article>
 
-        <article className="px-4">
-          <LineChart
-            width={600}
-            height={300}
-            data={viewData!}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-          >
-            <CartesianGrid />
-            {viewSeries!.map((name, i) => (
-              <Line
-                type="monotone"
-                key={name}
-                dataKey={name}
-                name={name}
-                stroke={COLORS[i % 10]}
-              />
-            ))}
-            <XAxis dataKey="year" />
-            <YAxis width="auto" />
-            <Legend align="right" />
-            <Tooltip />
-          </LineChart>
+        <article className="px-4 h-80 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={viewData!}
+              margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            >
+              <CartesianGrid />
+              {viewSeries!.map((name, i) => (
+                <Line
+                  type="monotone"
+                  key={name}
+                  dataKey={name}
+                  name={name}
+                  stroke={COLORS[i % 10]}
+                />
+              ))}
+              <XAxis dataKey="year" />
+              <YAxis width="auto" />
+              <Legend align="right" />
+              <Tooltip />
+            </LineChart>
+          </ResponsiveContainer>
         </article>
       </div>
     );
