@@ -48,7 +48,6 @@ export const GET = async () => {
 
     return NextResponse.json({ message: "success", data }, { status: 200 });
   } catch (error) {
-    console.log("エラーが発生しました");
     return NextResponse.json({ message: "Error", error }, { status: 500 });
   }
 };

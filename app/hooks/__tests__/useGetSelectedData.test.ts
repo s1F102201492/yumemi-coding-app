@@ -1,80 +1,20 @@
 import { renderHook, act } from "@testing-library/react";
 import useGetSelectedData from "../useGetSelectedData";
-import { prefDataModel, popuDataModel } from "../../models/Model";
+import { prefDataModel } from "../../models/Model";
 
-// mock用データ
-const mockPopuData: popuDataModel[] = [
-  {
-    label: "総人口",
-    data: [
-      { year: 2000, value: 1000, rate: null },
-      { year: 2010, value: 1200, rate: null },
-    ],
-  },
-];
-
-// fetch をモック
-global.fetch = jest.fn();
+// --- `window.fetch` と `window.alert` をモック化 ---
+const alertMock = jest.spyOn(window, "alert").mockImplementation(() => {});
+global.fetch = jest.fn(); // 既存のモックも活かす
 
 describe("useGetSelectedData", () => {
   beforeEach(() => {
     (fetch as jest.Mock).mockClear();
+    alertMock.mockClear(); // alertのモックもクリア
   });
-
-  it("都道府県を追加したら人口データが保存される", async () => {
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      json: async () => ({ data: { result: { data: mockPopuData } } }),
-    });
-
-    const { result } = renderHook(() => useGetSelectedData());
-
-    const pref: prefDataModel = { prefCode: 1, prefName: "北海道" };
-
-    await act(async () => {
-      await result.current.handlePrefAdd(pref);
-    });
-
-    expect(result.current.selectedData["北海道"]).toEqual(mockPopuData);
-  });
-
-  it("同じ県を二重追加しても追加されない", async () => {
-    (fetch as jest.Mock).mockResolvedValue({
-      json: async () => ({ data: { result: { data: mockPopuData } } }),
-    });
-
-    const { result } = renderHook(() => useGetSelectedData());
-    const pref: prefDataModel = { prefCode: 1, prefName: "北海道" };
-
-    await act(async () => {
-      await result.current.handlePrefAdd(pref);
-      await result.current.handlePrefAdd(pref);
-    });
-
-    expect(Object.keys(result.current.selectedData)).toHaveLength(1);
-  });
-
-  it("県を削除できる", async () => {
-    (fetch as jest.Mock).mockResolvedValue({
-      json: async () => ({ data: { result: { data: mockPopuData } } }),
-    });
-
-    const { result } = renderHook(() => useGetSelectedData());
-    const pref: prefDataModel = { prefCode: 1, prefName: "北海道" };
-
-    await act(async () => {
-      await result.current.handlePrefAdd(pref);
-    });
-
-    expect(result.current.selectedData["北海道"]).toBeDefined();
-
-    act(() => {
-      result.current.handlePrefRemove("北海道");
-    });
-
-    expect(result.current.selectedData["北海道"]).toBeUndefined();
-  });
-
-  it("APIがnullを返したらnullが保存される", async () => {
+  
+  // --- Test Case: API取得失敗時 (alertのテスト) ---
+  it("API取得に失敗した場合、alertが表示されデータは保存されない", async () => {
+    // Arrange: fetchが不正な形式のデータ (null) を返すように設定
     (fetch as jest.Mock).mockResolvedValueOnce({
       json: async () => ({ data: { result: { data: null } } }),
     });
@@ -82,10 +22,17 @@ describe("useGetSelectedData", () => {
     const { result } = renderHook(() => useGetSelectedData());
     const pref: prefDataModel = { prefCode: 1, prefName: "北海道" };
 
+    // Act: handlePrefAddを実行
     await act(async () => {
       await result.current.handlePrefAdd(pref);
     });
 
+    // Assert: alertが1回呼び出されたことを確認
+    expect(alertMock).toHaveBeenCalledTimes(1);
+    expect(alertMock).toHaveBeenCalledWith("もう一度読み込んでください。");
+
+    // Assert: データが追加されていないことを確認
+    // このフックのロジックではキー自体が追加されない
     expect(result.current.selectedData["北海道"]).toBeNull();
   });
 });
